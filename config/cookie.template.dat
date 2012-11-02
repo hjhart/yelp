@@ -1,0 +1,5 @@
+# Cookies for domains related to yelp.com.
+# This content may be pasted into a cookies.txt file and used by wget
+# Example:  wget -x --load-cookies cookies.txt http://www.yelp.com/import_photo_fb?from_signup=True
+#
+# Use something like "cookie.txt export" chrome extension to get this file generated for you on yelp.com

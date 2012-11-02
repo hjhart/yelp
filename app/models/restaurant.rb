@@ -1,4 +1,6 @@
 class Restaurant < ActiveRecord::Base
+  @queue = :restaurants
+
   attr_accessible :address, :category, :name, :phone_number, :rating, :restaurant_url, :website, :num_of_reviews
   has_many :reviews
 
@@ -12,7 +14,12 @@ class Restaurant < ActiveRecord::Base
 
   def populate_info
     raise Exception if restaurant_url.nil?
+    cookie_file = File.join(Rails.root, "config", "cookie.dat")
+    cookies = WebAgent::CookieManager.new cookie_file
+
     clnt = HTTPClient.new()
+    clnt.cookie_manager = cookies
+    clnt.debug_dev = STDOUT if $DEBUG
 
     content = clnt.get_content(target_restaurant_url)
     parsed = Nokogiri::HTML(content)
@@ -24,7 +31,7 @@ class Restaurant < ActiveRecord::Base
     attributes[:phone_number] = parsed.css('#bizPhone').text.strip
     attributes[:rating] = parsed.css('div#bizRating meta[itemprop=ratingValue]').first['content']
     attributes[:website] = parsed.css('div#bizUrl').text.strip
-    attributes[:num_of_reviews] = parsed.css('#about_reviews_tabs li[rel=reviews] a span').text.gsub(/[^\d]/, '')
+    attributes[:num_of_reviews] = parsed.css('#bizRating .review-count span').text
 
     puts "The attributes for that restaurant:"
     ap attributes
@@ -56,4 +63,9 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def self.perform(restaurant_id)
+    raise Exception if restaurant_id.nil?
+    restaurant = Restaurant.find_or_create_by_restaurant_url(restaurant_id)
+    restaurant.populate_info
+  end
 end

@@ -25,6 +25,7 @@ gem 'httpclient'
 gem 'test-unit'
 gem 'nokogiri'
 gem 'awesome_print'
+gem 'resque'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

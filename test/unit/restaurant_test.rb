@@ -6,7 +6,7 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "zee truth" do
-    restaurant = Restaurant.new :restaurant_url => "fruition-restaurant-denver"
+    restaurant = Restaurant.new :restaurant_url => "manor-coffee-shop-san-francisco"
     content = restaurant.populate_info
     assert content.class, String
   end
