@@ -18,7 +18,7 @@ class Restaurant < ActiveRecord::Base
   def populate_info
     raise Exception if restaurant_url.nil?
 
-    content = YelpScraper.get_page_content(target_restaurant_url, @deep_traverse)
+    content = YelpScraper.get_page_content(target_restaurant_url, true)
     parsed = Nokogiri::HTML(content)
 
     attributes = {}
@@ -48,7 +48,7 @@ class Restaurant < ActiveRecord::Base
 
       raise Exception if restaurant_url.nil?
 
-      content = YelpScraper.get_page_content(target_restaurant_url(offset))
+      content = YelpScraper.get_page_content(target_restaurant_url(offset), false)
       parsed = Nokogiri::HTML(content)
 
       parsed.css('li.review').each do |review|

@@ -9,7 +9,8 @@ module YelpScraper
     clnt.debug_dev = STDOUT if $DEBUG
 
     content = clnt.get_content(url)
-    parse_links_for_objects(content)
+    parse_links_for_objects(content) if parse_for_objects
+
     content
   end
 
@@ -17,6 +18,7 @@ module YelpScraper
 
     parsed = Nokogiri::HTML(html)
     puts "Analyzing page for links"
+
     user_ids = []
     biz_links = []
     review_ids = []
@@ -47,19 +49,21 @@ module YelpScraper
     end
 
 
-    puts "Found the following links on the page!"
-    puts "Adding the following users"
-    ap user_ids = user_ids.uniq
+    puts "* " * 40
+    puts "Following these links found on the page!"
+    puts "* " * 40
+
+    user_ids = user_ids.uniq
     user_ids.each do |user_id|
-      puts "Going to enqueue user #{user_id}"
-      #Resque.enqueue(User, user_id, true)
+      puts "Enqueue: User #{user_id}"
+      Resque.enqueue(User, user_id, true)
     end
 
     puts "Biz"
-    ap biz_links = biz_links.uniq
+    biz_links = biz_links.uniq
     biz_links.each do |biz_id|
-      puts "Going to enqueue business #{biz_id}"
-      #Resque.enqueue(Restaurant, biz_id, true)
+      puts "Enqueue: Biz #{biz_id}"
+      Resque.enqueue(Restaurant, biz_id, true)
     end
 
     puts "Reviews"

@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   def populate_info
     raise Exception if user_id.nil?
 
-    content = YelpScraper.get_page_content(profile_url)
+    content = YelpScraper.get_page_content(profile_url, true)
     parsed = Nokogiri::HTML(content)
 
     attributes = {}
