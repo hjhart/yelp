@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  username: MyString
+  user_id: MyString
+  public_name: MyString
+  friends: 1
+  reviews: 1
+  tips: 1
+  local_photos: 1
+  yelping_since: MyString
+  useful_votes: 1
+  funny_votes: 1
+  cool_votes: 1
+
+two:
+  username: MyString
+  user_id: MyString
+  public_name: MyString
+  friends: 1
+  reviews: 1
+  tips: 1
+  local_photos: 1
+  yelping_since: MyString
+  useful_votes: 1
+  funny_votes: 1
+  cool_votes: 1
