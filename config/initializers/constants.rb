@@ -1,1 +1,1 @@
-YELP_RESTAURANT_URL = "http://www.yelp.com/biz"
+YELP_RESTAURANT_URL = "http://www.yelp.com/biz/"
