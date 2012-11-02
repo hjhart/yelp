@@ -1,6 +1,7 @@
 class Review < ActiveRecord::Base
-  attr_accessible :content, :cool_count, :funny_count, :hrid, :rating, :title, :useful_count, :user_id
-  belongs_to :review
+  attr_accessible :content, :cool_count, :funny_count, :hrid, :rating, :title, :useful_count, :user_id, :restaurant_id
+  belongs_to :user
+  belongs_to :restaurant
 
   def parse_html_to_database(node)
     attributes = {}
