@@ -38,6 +38,6 @@ The tests are failing. Deal with it.
 
 # Results
 
-Are ridiculous:
+Are ridiculous, and growing more and more ridiculous.
 
-[Imgur](http://i.imgur.com/hfyIX)
+![Redonkulous](http://i.imgur.com/hfyIX.png "Redonkulous")
