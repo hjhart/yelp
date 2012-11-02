@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  attr_accessible :address, :category, :name, :phone_number, :rating, :restaurant_url, :website
+  attr_accessible :address, :category, :name, :phone_number, :rating, :restaurant_url, :website, :num_of_reviews
   has_many :reviews
 
   def target_restaurant_url(offset = nil)
@@ -32,5 +32,28 @@ class Restaurant < ActiveRecord::Base
     self.update_attributes!(attributes)
   end
 
+  def populate_review_info
+    if num_of_reviews.nil?
+      puts "Number of reviews is not populated. Needed for offset calculation"
+      populate_info
+    end
+
+    offset = 0
+    while(offset <= num_of_reviews)
+
+      raise Exception if restaurant_url.nil?
+      clnt = HTTPClient.new()
+
+      content = clnt.get_content(target_restaurant_url)
+      parsed = Nokogiri::HTML(content)
+
+      parsed.css('li.review').each do |review|
+        rv = Review.new
+        rv.parse_html_to_database(review)
+      end
+
+      offset += 40
+    end
+  end
 
 end
