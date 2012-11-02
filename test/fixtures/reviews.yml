@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  rating: 1
+  content: MyText
+  useful_count: 1
+  funny_count: 1
+  cool_count: 1
+  hrid: MyString
+
+two:
+  title: MyString
+  rating: 1
+  content: MyText
+  useful_count: 1
+  funny_count: 1
+  cool_count: 1
+  hrid: MyString
